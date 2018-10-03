@@ -8,10 +8,12 @@ import org.junit.jupiter.api.Test;
 
 class TestTerm {
 	static Term t;
+	static Term t2;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		t = new Term("test", 1);
+		t2 = new Term("dog", 2);
 	}
 
 	@Test
@@ -20,6 +22,11 @@ class TestTerm {
 		String expectedQuery = "test";
 		assertTrue(t.query == expectedQuery);
 		assertTrue(t.weight == expectedWeight);
+
+		int expectedWeight2 = 2;
+		String expectedQuery2 = "dog";
+		assertTrue(t2.query == expectedQuery2);
+		assertTrue(t2.weight == expectedWeight2);
 	}
 
 	@Test
