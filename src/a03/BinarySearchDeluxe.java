@@ -1,3 +1,10 @@
+/************************************************
+ * Author(s): (I don't remember your name sorry), Spencer Rosenvall
+ * Class: CSIS 2420
+ * Professor: Frau Posch
+ * Assignment: A03_AutoComplete
+ ************************************************/
+
 package a03;
 
 import java.util.Comparator;
