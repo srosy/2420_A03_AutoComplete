@@ -1,5 +1,5 @@
 /************************************************
- * Author(s): (I don't remember your name sorry), Spencer Rosenvall
+ * Author(s): William McConnell, Spencer Rosenvall
  * Class: CSIS 2420
  * Professor: Frau Posch
  * Assignment: A03_AutoComplete
@@ -13,7 +13,7 @@ import java.util.Comparator;
  * objects and compare them by reversed weight order, by prefix order, and
  * default.
  * 
- * @author SpencerR, yourName
+ * @author SpencerR, William McConnell
  *
  */
 public class Term implements Comparable<Term> {
