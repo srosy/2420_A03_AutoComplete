@@ -24,14 +24,13 @@ public class BinarySearchDeluxe {
 	 * no such key.
 	 */
 	public static <Key> int firstIndexOf(Key[] a, Key key, Comparator<Key> comparator) {
-
 		int lo = 0;
 		int hi = a.length - 1;
-
 		while (lo <= hi) {
 			int mid = lo + (hi - lo) / 2;
-
-			if ((mid == 0 || comparator.compare(key, a[mid - 1]) > 0) && a[mid] == key)
+			
+			if ((mid == 0 || comparator.compare(key, a[mid-1]) > 0) &&
+					comparator.compare(a[mid], key) == 0)
 				return mid;
 			else if (comparator.compare(key, a[mid]) > 0)
 				lo = mid + 1;
@@ -46,14 +45,15 @@ public class BinarySearchDeluxe {
 	 * no such key.
 	 */
 	public static <Key> int lastIndexOf(Key[] a, Key key, Comparator<Key> comparator) {
-
+		
 		int lo = 0;
 		int hi = a.length - 1;
-
+		
 		while (lo <= hi) {
 			int mid = lo + (hi - lo) / 2;
-
-			if ((mid == 0 || comparator.compare(key, a[mid + 1]) < 0) && a[mid] == key)
+			
+			if ((mid == a.length - 1 || comparator.compare(key, a[mid+1]) < 0) &&
+					comparator.compare(a[mid], key) == 0)
 				return mid;
 			else if (comparator.compare(key, a[mid]) < 0)
 				hi = mid - 1;
