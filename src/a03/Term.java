@@ -46,6 +46,7 @@ public class Term implements Comparable<Term> {
 	public static Comparator<Term> byReverseWeightOrder() {
 		return new Comparator<Term>() {
 			public int compare(Term first, Term second) {
+				// return Double.compare(first.weight, second.weight); 
 				if (first.weight > second.weight) {
 					return -1;
 				} else if (first.weight == second.weight) {
@@ -65,33 +66,38 @@ public class Term implements Comparable<Term> {
 	 * @return
 	 */
 	public static Comparator<Term> byPrefixOrder(int r) {
-		final int firstQChar = r;
+		//final int firstQChar = r;
 
 		if (r < 0) {
 			throw new IllegalArgumentException("r must be greater than 0");
 		}
 
-		return new Comparator<Term>() {
+		return new Comparator<Term>(int r) {
 			public int compare(Term first, Term second) {
-				int minQLength;
-				String firstPrefix = first.query;
-				String secondPrefix = second.query;
-
-				if (firstPrefix.length() < secondPrefix.length()) {
-					minQLength = firstPrefix.length();
-				} else {
-					minQLength = secondPrefix.length();
-				}
-
-				if (minQLength >= firstQChar) {
-					return firstPrefix.substring(0, firstQChar).compareTo(secondPrefix.substring(0, firstQChar));
-				} else if (firstPrefix.substring(0, minQLength).compareTo(secondPrefix.substring(0, minQLength)) == 0) {
-					if (firstPrefix.length() == minQLength)
-						return -1;
-					else
-						return 1;
-				} else
-					return firstPrefix.substring(0, minQLength).compareTo(secondPrefix.substring(0, minQLength));
+				
+				String firstPrefix = (if first.query.length() < r) ? first.query : first.query.substring(0,r);
+				String Second Prefix = (if second.query.length() < r) ? second.query : second.query.substring(0,r);
+				return firstPrefix.compareTo(secondPrefix);
+				
+//				int minQLength;
+//				String firstPrefix = first.query;
+//				String secondPrefix = second.query;
+//
+//				if (firstPrefix.length() < secondPrefix.length()) {
+//					minQLength = firstPrefix.length();
+//				} else {
+//					minQLength = secondPrefix.length();
+//				}
+//
+//				if (minQLength >= firstQChar) {
+//					return firstPrefix.substring(0, firstQChar).compareTo(secondPrefix.substring(0, firstQChar));
+//				} else if (firstPrefix.substring(0, minQLength).compareTo(secondPrefix.substring(0, minQLength)) == 0) {
+//					if (firstPrefix.length() == minQLength)
+//						return -1;
+//					else
+//						return 1;
+//				} else
+//					return firstPrefix.substring(0, minQLength).compareTo(secondPrefix.substring(0, minQLength));
 			}
 		};
 	}
