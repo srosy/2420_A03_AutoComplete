@@ -29,7 +29,10 @@ public class Autocomplete {
 	 * @param terms
 	 */
 	public Autocomplete(Term[] terms) {
-    	Arrays.sort(terms);
+		if (terms == null)
+			throw new NullPointerException("Terms must not be null");
+		
+		Arrays.sort(terms);
     	this.terms = terms.clone();
     }
 
@@ -40,11 +43,15 @@ public class Autocomplete {
      * @return
 	 */
 	public Term[] allMatches(String prefix) {
+		if (prefix == null)
+			throw new NullPointerException("Prefix must not be null");
+		
     	term = new Term(prefix, 0);
-    	lastPosition =  BinarySearchDeluxe.lastIndexOf(terms, term, Term.byPrefixOrder(prefix.length()));
     	firstPosition = BinarySearchDeluxe.firstIndexOf(terms, term, Term.byPrefixOrder(prefix.length()));
+    	if (firstPosition == -1) return new Term[0];
+    	lastPosition =  BinarySearchDeluxe.lastIndexOf(terms, term, Term.byPrefixOrder(prefix.length()));
     	
-    	Term[] matchingTerms = Arrays.copyOfRange(terms, firstPosition, lastPosition);
+    	Term[] matchingTerms = Arrays.copyOfRange(terms, firstPosition, lastPosition + 1);
     	Arrays.sort(matchingTerms, Term.byReverseWeightOrder());
 		return matchingTerms; 
     }
@@ -56,7 +63,10 @@ public class Autocomplete {
      * @return
 	 */
 	public int numberOfMatches(String prefix) {
-    	term = new Term(prefix, 0);
+		if (prefix == null)
+			throw new NullPointerException("Prefix must not be null");
+    	
+		term = new Term(prefix, 0);
     	firstPosition = BinarySearchDeluxe.firstIndexOf(terms, term, Term.byPrefixOrder(prefix.length()));
     	lastPosition =  BinarySearchDeluxe.lastIndexOf(terms, term, Term.byPrefixOrder(prefix.length()));
     	
