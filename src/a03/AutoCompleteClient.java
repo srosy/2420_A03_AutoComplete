@@ -28,7 +28,7 @@ public class AutoCompleteClient {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String filename = "src/wiktionary.txt";
+		String filename = args[0];
 		In in = new In(filename);
 		int N = in.readInt();
 		Term[] terms = new Term[N];
@@ -39,7 +39,7 @@ public class AutoCompleteClient {
 			terms[i] = new Term(query, weight);
 		}
 
-		int k = 20;
+		int Integer.parseInt(args[1]);
 		Autocomplete autocomplete = new Autocomplete(terms);
 		while (StdIn.hasNextLine()) {
 			String prefix = StdIn.readLine();
