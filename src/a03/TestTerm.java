@@ -1,52 +1,76 @@
+/************************************************
+ * Author(s): William McConnell, Spencer Rosenvall
+ * Class: CSIS 2420
+ * Professor: Frau Posch
+ * Assignment: A03_AutoComplete
+ ************************************************/
+
 package a03;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.Comparator;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Class TestTerm tests methods in Term.java.
+ * 
+ * @authors William McConnell, Spencer Rosenvall
+ *
+ */
 class TestTerm {
-	static Term t;
+	static Term t1;
 	static Term t2;
 
+	/**
+	 * Initializes test objects.
+	 * 
+	 * @throws Exception
+	 */
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		t = new Term("test", 1);
+		t1 = new Term("test", 1);
 		t2 = new Term("dog", 2);
 	}
 
-	@Test
-	void testTerm() {
-		int expectedWeight = 1;
-		String expectedQuery = "test";
-		assertTrue(t.query == expectedQuery);
-		assertTrue(t.weight == expectedWeight);
-
-		int expectedWeight2 = 2;
-		String expectedQuery2 = "dog";
-		assertTrue(t2.query == expectedQuery2);
-		assertTrue(t2.weight == expectedWeight2);
-	}
-
+	/**
+	 * Tests using comparator if reverse weight order matches.
+	 */
 	@Test
 	void testByReverseWeightOrder() {
-		fail("Not yet implemented");
+		Comparator<Term> c = Term.byReverseWeightOrder();
+		int expected = 1;
+		int actual = c.compare(t1, t2);
+		assertTrue(expected == actual);
+		assertFalse(expected < actual);
+		assertFalse(expected > actual);
 	}
 
+	/**
+	 * Tests using comparator if prefix order matches.
+	 */
 	@Test
 	void testByPrefixOrder() {
-		fail("Not yet implemented");
+		Comparator<Term> c = Term.byPrefixOrder(2);
+		int expected = 1;
+		int actual = c.compare(t1, t2);
+		assertFalse(expected == actual);
+		assertFalse(expected > actual);
+		assertTrue(expected < actual);
 	}
 
+	/**
+	 * Tests using native comparator.
+	 */
 	@Test
 	void testCompareTo() {
-		fail("Not yet implemented");
+		int actual = t1.compareTo(t2);
+		int expected = 16;
+		assertTrue(expected == actual);
+		assertFalse(expected < actual);
+		assertFalse(expected > actual);
 	}
-
-	@Test
-	void testToString() {
-		fail("Not yet implemented");
-	}
-
 }

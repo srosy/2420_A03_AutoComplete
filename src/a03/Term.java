@@ -41,12 +41,11 @@ public class Term implements Comparable<Term> {
 	/**
 	 * Compares the terms in descending order by weight.
 	 * 
-	 * @return
+	 * @return Comparator<Term>
 	 */
 	public static Comparator<Term> byReverseWeightOrder() {
 		return new Comparator<Term>() {
 			public int compare(Term first, Term second) {
-				// return Double.compare(first.weight, second.weight); 
 				if (first.weight > second.weight) {
 					return -1;
 				} else if (first.weight == second.weight) {
@@ -63,47 +62,27 @@ public class Term implements Comparable<Term> {
 	 * characters of each query.
 	 * 
 	 * @param r
-	 * @return
+	 * @return Comparator<Term>
 	 */
 	public static Comparator<Term> byPrefixOrder(int r) {
-		//final int firstQChar = r;
-
 		if (r < 0) {
 			throw new IllegalArgumentException("r must be greater than 0");
 		}
 
-		return new Comparator<Term>(int r) {
+		return new Comparator<Term>() {
 			public int compare(Term first, Term second) {
-				
-				String firstPrefix = (if first.query.length() < r) ? first.query : first.query.substring(0,r);
-				String Second Prefix = (if second.query.length() < r) ? second.query : second.query.substring(0,r);
+
+				String firstPrefix = (first.query.length() < r) ? first.query : first.query.substring(0, r);
+				String secondPrefix = (second.query.length() < r) ? second.query : second.query.substring(0, r);
 				return firstPrefix.compareTo(secondPrefix);
-				
-//				int minQLength;
-//				String firstPrefix = first.query;
-//				String secondPrefix = second.query;
-//
-//				if (firstPrefix.length() < secondPrefix.length()) {
-//					minQLength = firstPrefix.length();
-//				} else {
-//					minQLength = secondPrefix.length();
-//				}
-//
-//				if (minQLength >= firstQChar) {
-//					return firstPrefix.substring(0, firstQChar).compareTo(secondPrefix.substring(0, firstQChar));
-//				} else if (firstPrefix.substring(0, minQLength).compareTo(secondPrefix.substring(0, minQLength)) == 0) {
-//					if (firstPrefix.length() == minQLength)
-//						return -1;
-//					else
-//						return 1;
-//				} else
-//					return firstPrefix.substring(0, minQLength).compareTo(secondPrefix.substring(0, minQLength));
 			}
 		};
 	}
 
 	/**
 	 * Compares the terms in lexicographic order by query.
+	 * 
+	 * @return int
 	 */
 	public int compareTo(Term t) {
 		return this.query.compareTo(t.query);
@@ -112,6 +91,8 @@ public class Term implements Comparable<Term> {
 	/**
 	 * Return a string representation of the term in the following format: the
 	 * weight, followed by a tab, followed by the query.
+	 * 
+	 * @return String
 	 */
 	public String toString() {
 		return Double.toString(this.weight) + "\t" + this.query;
